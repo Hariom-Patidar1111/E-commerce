@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 👇 APNI BACKEND URL YAHAN DAALO
-const API_URL = 'http://172.22.239.81:8081';
+const API_URL = 'https://e-commerce-8c8b.onrender.com';
 
 // Axios Instance Create
 const api = axios.create({
