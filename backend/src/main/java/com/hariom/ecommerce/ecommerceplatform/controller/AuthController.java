@@ -12,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = {
-        "http://localhost:5173",
-        "https://e-commerce-tau-topaz-13.vercel.app"
-})
+
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired

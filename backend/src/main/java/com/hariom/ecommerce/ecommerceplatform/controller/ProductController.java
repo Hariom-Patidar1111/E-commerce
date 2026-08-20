@@ -13,10 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
-@CrossOrigin(origins = {
-        "http://localhost:5173",
-        "https://e-commerce-tau-topaz-13.vercel.app"
-})
+
 public class ProductController {
 
     @Autowired
