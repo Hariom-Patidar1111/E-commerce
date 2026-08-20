@@ -8,14 +8,15 @@ import com.hariom.ecommerce.ecommerceplatform.service.Service;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/product")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://e-commerce-tau-topaz-13.vercel.app"
+})
 public class ProductController {
 
     @Autowired
@@ -24,10 +25,11 @@ public class ProductController {
     private OrderIdController orderIdController;
 
     @PostMapping("/add")
-    public List<Product>  addProduct(@RequestBody List<Product> product){
+    public List<Product> addProduct(@RequestBody List<Product> product) {
         return service.save(product);
 
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Product product = service.getProductById(id);
@@ -37,6 +39,7 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/user/{id}")
     public UserProfileDTO getUserProfile(@PathVariable Long id) {
         return service.getUserProfile(id);
@@ -48,8 +51,8 @@ public class ProductController {
     }
 
     @GetMapping("/get")
-    public List<Product> getProduct(){
-          return service.getProducts();
+    public List<Product> getProduct() {
+        return service.getProducts();
     }
 
     // ✅ NEW - Search products
@@ -62,26 +65,28 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-
     @PostMapping("/productId")
-    public String quantity(@PathVariable Long orderId , @PathVariable int quantity){
-        return orderIdController.productId(orderId,quantity);
+    public String quantity(@PathVariable Long orderId, @PathVariable int quantity) {
+        return orderIdController.productId(orderId, quantity);
     }
 
-    //  %%%  Card ###
+    // %%% Card ###
 
     @PostMapping("/add/{cartid}/{productid}/{quantity}")
-    public String CardAdd(@PathVariable Long cartid ,@PathVariable Long productid,@PathVariable int quantity){
-        return service.cardAdd(cartid,productid,quantity);
+    public String CardAdd(@PathVariable Long cartid, @PathVariable Long productid, @PathVariable int quantity) {
+        return service.cardAdd(cartid, productid, quantity);
     }
+
     @GetMapping("/cartItem")
-    public List<CartItem> cardResponse(){
+    public List<CartItem> cardResponse() {
         return service.cartResponse();
     }
+
     @PostMapping("/cartId")
-    public String cartId(@PathVariable Long cardId){
+    public String cartId(@PathVariable Long cardId) {
         return orderIdController.cartId(cardId);
     }
+
     @PostMapping("/count/{cartId}")
     public int getCartCount(@PathVariable Long cartId) {
         return service.cartCount(cartId);

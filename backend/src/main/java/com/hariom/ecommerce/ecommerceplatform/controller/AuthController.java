@@ -12,21 +12,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://e-commerce-tau-topaz-13.vercel.app"
+})
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private Service service;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request){
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         LoginResponse response = service.login(request);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/sign")
-    public ResponseEntity<String> Sign( @Valid @RequestBody  SignupRequest request){
-         service.signup(request);
+    public ResponseEntity<String> Sign(@Valid @RequestBody SignupRequest request) {
+        service.signup(request);
         return ResponseEntity.status(HttpStatus.CREATED).body("✅ User registered successfully!");
     }
 }
